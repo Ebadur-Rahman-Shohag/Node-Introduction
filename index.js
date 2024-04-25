@@ -38,7 +38,7 @@ import fs from "fs";
 import url from "url";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import replaceTemplates from "./modules.js/replaceTemplates.mjs";
+import { replaceTemplate } from "./modules.js/replaceTemplates.cjs";
 /*
 const replaceTemplates =  (temp, product)=> {
   let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
@@ -94,7 +94,7 @@ const server = http.createServer((req, res) => {
     });
 
     const cardsHtml = dataObj
-      .map((el) => replaceTemplates(tempCard, el))
+      .map((el) => replaceTemplate(tempCard, el))
       .join("");
     const output = tempOverview.replace(/  {%PRODUCT_CARDS%}/g, cardsHtml);
     res.end(output);
@@ -106,7 +106,7 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
     });
     const product = dataObj[query.id]
-    const output = replaceTemplates(tempProduct,product)
+    const output = replaceTemplate(tempProduct,product)
     res.end(output);
   }
   // API
