@@ -35,6 +35,7 @@ console.log("Finished Executing");
 // ***********************SERVER***************************
 import http from "http";
 import fs from "fs";
+import url from "url";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
@@ -78,9 +79,10 @@ const server = http.createServer((req, res) => {
   // console.log(req)
   //routing
   // console.log(req.url);
-  const pathName = req.url;
+  const {query,pathname} = (url.parse(req.url,true))
+  // const pathName = req.url;
   // OVERVIEW PAGE
-  if (pathName === "/" || pathName === "/overview") {
+  if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
@@ -93,11 +95,16 @@ const server = http.createServer((req, res) => {
   }
 
   // PRODUCT PAGE
-  else if (pathName === "/product") {
-    res.end("This is the PRODUCT");
+  else if (pathname === "/product") {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+    });
+    const product = dataObj[query.id]
+    const output = replaceTemplate(tempProduct,product)
+    res.end(output);
   }
   // API
-  else if (pathName === "/api") {
+  else if (pathname === "/api") {
     res.writeHead(200, {
       "Content-type": "application/json",
     });
