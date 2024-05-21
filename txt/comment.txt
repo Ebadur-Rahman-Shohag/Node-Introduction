@@ -1,0 +1,4 @@
+//There are two types of dependencies, simple or regular and dev dependencies. 
+//1. Simple or regular dependencies are simply packages that contain some code that we will include in our own code, code upon which we built our own application. For example, Express(npm install express).
+//2. Dev dependencies are usually are tools for development. Example debugger tools or testing library or Webpack. (npm i nodemon)
+//There are two types of install: 1.local install 2. global install
